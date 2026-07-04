@@ -497,13 +497,12 @@
       border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* ========== REVEAL ANIMATION (set by JS, not CSS — graceful degradation) ========== */
-    .reveal, .skill-card, .project-card {
+    /* ========== REVEAL ANIMATION ========== */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .reveal.visible, .skill-card.visible, .project-card.visible {
-      opacity: 1; transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ========== REDUCED MOTION ========== */
     @media (prefers-reduced-motion: reduce) {
@@ -1010,12 +1009,8 @@
     }
     drawFlickerGrid();
 
-    /* ===== SCROLL REVEAL (set initial state via JS) ===== */
-    document.querySelectorAll('.reveal, .skill-card, .project-card').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-    });
-    const revealObserver = new IntersectionObserver((entries) => {
+    /* ===== SCROLL REVEAL ===== */
+    const revealObserver
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
       });
