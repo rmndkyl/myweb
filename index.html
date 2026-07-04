@@ -1010,7 +1010,7 @@
     drawFlickerGrid();
 
     /* ===== SCROLL REVEAL ===== */
-    const revealObserver
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
       });
